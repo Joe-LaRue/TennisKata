@@ -36,14 +36,10 @@ namespace Tennis
                 _player2Score += 1;
         }
 
-        private bool ScoreIsTied()
-        {
-            return _player1Score == _player2Score;
-        }
 
         public string GetScore()
         {
-            if (ScoreIsTied())
+            if (_player1Score == _player2Score)
             {
                 return GetTieScoreDescription();
             }
@@ -60,6 +56,7 @@ namespace Tennis
         {
             var player1ScoreDescription = GetScoreDescription(_player1Score);
             var player2ScoreDescription = GetScoreDescription(_player2Score);
+
             return $"{player1ScoreDescription}-{player2ScoreDescription}";
         }
 
