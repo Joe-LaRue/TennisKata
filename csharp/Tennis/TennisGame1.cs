@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Tennis
 {
     class TennisGame1 : ITennisGame
@@ -6,6 +8,14 @@ namespace Tennis
         private int _player2Score = 0;
         private string _player1Name;
         private string _player2Name;
+
+        private Dictionary<int, string> _scoreValues = new Dictionary<int, string>()
+        {
+            {0, "Love" },
+            {1, "Fifteen" },
+            {2, "Thirty" },
+            {3,"Forty" }
+        };
 
         public TennisGame1(string player1Name, string player2Name)
         {
@@ -105,18 +115,14 @@ namespace Tennis
 
         private string GetTieScoreDescription()
         {
-            switch (_player1Score)
+            if (_player1Score < 3)
             {
-                case 0:
-                    return "Love-All";
-                case 1:
-                    return "Fifteen-All";
-                case 2:
-                    return "Thirty-All";
-                default:
-                    return "Deuce";
-
+                return $"{_scoreValues[_player1Score]}-All";
             }
+            else
+            {
+                return "Deuce";
+            }           
         }
     }
 }
