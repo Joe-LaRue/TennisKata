@@ -9,18 +9,23 @@ namespace Tennis
         private string _player1Name;
         private string _player2Name;
 
-        private Dictionary<int, string> _scoreValues = new Dictionary<int, string>()
+        private string GetScoreDescription(int score)
         {
-            {0, "Love" },
-            {1, "Fifteen" },
-            {2, "Thirty" },
-            {3,"Forty" }
-        };
+            var scoreDescriptions = new Dictionary<int, string>()
+            {
+                {0, "Love" },
+                {1, "Fifteen" },
+                {2, "Thirty" },
+                {3,"Forty" }
+            };
+
+            return scoreDescriptions[score];
+        }
 
         public TennisGame1(string player1Name, string player2Name)
         {
-            this._player1Name = player1Name;
-            this._player2Name = player2Name;
+            _player1Name = player1Name;
+            _player2Name = player2Name;
         }
 
         public void WonPoint(string playerName)
@@ -43,7 +48,6 @@ namespace Tennis
                 return GetTieScoreDescription();
             }
 
-
             if (_player1Score >= 4 || _player2Score >= 4)
             {
                 return Get4OrMoreScoreDescription();
@@ -54,26 +58,9 @@ namespace Tennis
 
         private string GetLessThan4ScoreDescription()
         {
-            string score = "";
-            var tempScore = 0;
-
-
-            for (var i = 1; i < 3; i++)
-            {
-                if (i == 1)
-                {
-                    tempScore = _player1Score;
-                }
-                else 
-                { 
-                    score += "-"; 
-                    tempScore = _player2Score;                
-                }
-
-                score += _scoreValues[tempScore];             
-            }
-
-            return score;
+            var player1ScoreDescription = GetScoreDescription(_player1Score);
+            var player2ScoreDescription = GetScoreDescription(_player2Score);
+            return $"{player1ScoreDescription}-{player2ScoreDescription}";
         }
 
         private string Get4OrMoreScoreDescription()
@@ -103,12 +90,13 @@ namespace Tennis
         {
             if (_player1Score < 3)
             {
-                return $"{_scoreValues[_player1Score]}-All";
+                var scoreDescription = GetScoreDescription(_player1Score);
+                return $"{scoreDescription}-All";
             }
             else
             {
                 return "Deuce";
-            }           
+            }
         }
     }
 }
