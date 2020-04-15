@@ -70,21 +70,7 @@ namespace Tennis
                     tempScore = _player2Score;                
                 }
 
-                switch (tempScore)
-                {
-                    case 0:
-                        score += "Love";
-                        break;
-                    case 1:
-                        score += "Fifteen";
-                        break;
-                    case 2:
-                        score += "Thirty";
-                        break;
-                    case 3:
-                        score += "Forty";
-                        break;
-                }
+                score += _scoreValues[tempScore];             
             }
 
             return score;
