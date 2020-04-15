@@ -15,36 +15,28 @@ namespace Tennis
 
         public void WonPoint(string playerName)
         {
-            if (playerName == "player1")
+            if (playerName == _player1Name)
                 _player1Score += 1;
             else
                 _player2Score += 1;
         }
 
-        public string GetScore()
+        private bool ScoreIsTied()
         {
+            return _player1Score == _player2Score;
+        }
+
+        public string GetScore()
+        {            
+            if (ScoreIsTied())
+            {
+                return GetTieScoreDescription();
+            }
+
+
             string score = "";
             var tempScore = 0;
-            if (_player1Score == _player2Score)
-            {
-                switch (_player1Score)
-                {
-                    case 0:
-                        score = "Love-All";
-                        break;
-                    case 1:
-                        score = "Fifteen-All";
-                        break;
-                    case 2:
-                        score = "Thirty-All";
-                        break;
-                    default:
-                        score = "Deuce";
-                        break;
-
-                }
-            }
-            else if (_player1Score >= 4 || _player2Score >= 4)
+            if (_player1Score >= 4 || _player2Score >= 4)
             {
                 var minusResult = _player1Score - _player2Score;
                 if (minusResult == 1) score = "Advantage player1";
@@ -76,6 +68,22 @@ namespace Tennis
                 }
             }
             return score;
+        }
+
+        private string GetTieScoreDescription()
+        {
+            switch (_player1Score)
+            {
+                case 0:
+                    return "Love-All";
+                case 1:
+                    return "Fifteen-All";
+                case 2:
+                    return "Thirty-All";
+                default:
+                    return "Deuce";
+
+            }
         }
     }
 }
