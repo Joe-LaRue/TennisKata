@@ -27,47 +27,67 @@ namespace Tennis
         }
 
         public string GetScore()
-        {            
+        {
             if (ScoreIsTied())
             {
                 return GetTieScoreDescription();
             }
 
+           
+            if (_player1Score >= 4 || _player2Score >= 4)
+            {
+                return Get4OrMoreScoreDescription();
+            }
 
             string score = "";
             var tempScore = 0;
-            if (_player1Score >= 4 || _player2Score >= 4)
+
+
+            for (var i = 1; i < 3; i++)
             {
-                var minusResult = _player1Score - _player2Score;
-                if (minusResult == 1) score = "Advantage player1";
-                else if (minusResult == -1) score = "Advantage player2";
-                else if (minusResult >= 2) score = "Win for player1";
-                else score = "Win for player2";
+                if (i == 1) tempScore = _player1Score;
+                else { score += "-"; tempScore = _player2Score; }
+                switch (tempScore)
+                {
+                    case 0:
+                        score += "Love";
+                        break;
+                    case 1:
+                        score += "Fifteen";
+                        break;
+                    case 2:
+                        score += "Thirty";
+                        break;
+                    case 3:
+                        score += "Forty";
+                        break;
+                }
+            }
+
+            return score;
+        }
+
+        private string Get4OrMoreScoreDescription()
+        {
+            var scoreDifference = _player1Score - _player2Score;
+
+
+            if (scoreDifference == 1)
+            {
+                return "Advantage player1";
+            }
+            else if (scoreDifference == -1)
+            {
+                return "Advantage player2";
+            }
+            else if (scoreDifference >= 2)
+            {
+                return "Win for player1";
             }
             else
             {
-                for (var i = 1; i < 3; i++)
-                {
-                    if (i == 1) tempScore = _player1Score;
-                    else { score += "-"; tempScore = _player2Score; }
-                    switch (tempScore)
-                    {
-                        case 0:
-                            score += "Love";
-                            break;
-                        case 1:
-                            score += "Fifteen";
-                            break;
-                        case 2:
-                            score += "Thirty";
-                            break;
-                        case 3:
-                            score += "Forty";
-                            break;
-                    }
-                }
+                return "Win for player2";
             }
-            return score;
         }
 
         private string GetTieScoreDescription()
