@@ -33,20 +33,33 @@ namespace Tennis
                 return GetTieScoreDescription();
             }
 
-           
+
             if (_player1Score >= 4 || _player2Score >= 4)
             {
                 return Get4OrMoreScoreDescription();
             }
 
+            return GetLessThan4ScoreDescription();
+        }
+
+        private string GetLessThan4ScoreDescription()
+        {
             string score = "";
             var tempScore = 0;
 
 
             for (var i = 1; i < 3; i++)
             {
-                if (i == 1) tempScore = _player1Score;
-                else { score += "-"; tempScore = _player2Score; }
+                if (i == 1)
+                {
+                    tempScore = _player1Score;
+                }
+                else 
+                { 
+                    score += "-"; 
+                    tempScore = _player2Score;                
+                }
+
                 switch (tempScore)
                 {
                     case 0:
