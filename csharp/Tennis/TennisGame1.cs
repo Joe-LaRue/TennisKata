@@ -54,8 +54,8 @@ namespace Tennis
 
         private string GetLessThan4ScoreDescription()
         {
-            var player1ScoreDescription = GetScoreDescription(_player1Score);
-            var player2ScoreDescription = GetScoreDescription(_player2Score);
+            var player1ScoreDescription = ScoreHelper.ScoreDescription(_player1Score);
+            var player2ScoreDescription = ScoreHelper.ScoreDescription(_player2Score);
 
             return $"{player1ScoreDescription}-{player2ScoreDescription}";
         }
@@ -87,7 +87,7 @@ namespace Tennis
         {
             if (_player1Score < 3)
             {
-                var scoreDescription = GetScoreDescription(_player1Score);
+                var scoreDescription = ScoreHelper.ScoreDescription(_player1Score);
                 return $"{scoreDescription}-All";
             }
             else
