@@ -9,19 +9,6 @@ namespace Tennis
         private string _player1Name;
         private string _player2Name;
 
-        private string GetScoreDescription(int score)
-        {
-            var scoreDescriptions = new Dictionary<int, string>()
-            {
-                {0, "Love" },
-                {1, "Fifteen" },
-                {2, "Thirty" },
-                {3,"Forty" }
-            };
-
-            return scoreDescriptions[score];
-        }
-
         public TennisGame1(string player1Name, string player2Name)
         {
             _player1Name = player1Name;
