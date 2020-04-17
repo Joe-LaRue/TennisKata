@@ -28,12 +28,12 @@ namespace Tennis
                
             }
 
-            if (p2point < 4 && p1point < 4)
+            if (BothPlayersHaveLessThan4())
             {            
                 p1res = ScoreHelper.ScoreDescription(p1point);
                 p2res = ScoreHelper.ScoreDescription(p2point);
                 
-                score = p1res + "-" + p2res;
+                return p1res + "-" + p2res;
             }
             
             if (p1point > p2point && p2point >= 3)
@@ -55,6 +55,13 @@ namespace Tennis
                 score = "Win for player2";
             }
             return score;
+        }
+
+        
+
+        private bool BothPlayersHaveLessThan4()
+        {
+            return p2point < 4 && p1point < 4;
         }
 
         private string GetTieScoreDescription()
