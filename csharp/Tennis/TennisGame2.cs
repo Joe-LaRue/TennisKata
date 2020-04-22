@@ -93,15 +93,31 @@ namespace Tennis
                 score = "Advantage player2";
             }
 
-            if (p1point >= 4 && p2point >= 0 && (p1point - p2point) >= 2)
+            if (Player1HasWon())
             {
                 score = "Win for player1";
             }
-            if (p2point >= 4 && p1point >= 0 && (p2point - p1point) >= 2)
+            if (Player2HasWon())
             {
                 score = "Win for player2";
             }
             return score;
+        }
+
+        private bool Player1HasWon()
+        {
+            var scoreDifference = p1point - p2point;
+            return p1point >= 4 && 
+                p2point >= 0 && 
+                scoreDifference >= 2;
+        }
+
+        private bool Player2HasWon()
+        {
+            var scoreDifference = p2point - p1point;
+            return p2point >= 4 &&
+                p1point >= 0 &&
+                scoreDifference >= 2;
         }
 
         private bool Player1HasAdvantage()
