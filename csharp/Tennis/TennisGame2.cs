@@ -1,3 +1,6 @@
+using NUnit.Framework.Constraints;
+using System.Collections.Generic;
+
 namespace Tennis
 {
     public class TennisGame2 : ITennisGame
@@ -20,18 +23,11 @@ namespace Tennis
         public string GetScore()
         {
             var score = "";
-            if (p1point == p2point && p1point < 3)
+            if (ScoreIsTied())
             {
-                if (p1point == 0)
-                    score = "Love";
-                if (p1point == 1)
-                    score = "Fifteen";
-                if (p1point == 2)
-                    score = "Thirty";
-                score += "-All";
+                score = GetTieScoreDescription();
             }
-            if (p1point == p2point && p1point > 2)
-                score = "Deuce";
+
 
             if (p1point > 0 && p2point == 0)
             {
@@ -70,6 +66,7 @@ namespace Tennis
                     p2res = "Thirty";
                 score = p1res + "-" + p2res;
             }
+
             if (p2point > p1point && p2point < 4)
             {
                 if (p2point == 2)
@@ -104,11 +101,40 @@ namespace Tennis
             return score;
         }
 
+        private string GetScoreDescription(int score)
+        {
+            var scoreDescriptions = new Dictionary<int, string>()
+            {
+                {0, "Love" },
+                {1, "Fifteen" },
+                {2, "Thirty" },
+                {3,"Forty" }
+            };
+
+            return scoreDescriptions[score];
+        }
+
+        private string GetTieScoreDescription()
+        {
+            if (p1point > 2)
+            {
+                return "Deuce";
+            }
+
+            var scoreDescription = GetScoreDescription(p1point);
+            return $"{scoreDescription}-All";
+        }
+
+        private bool ScoreIsTied()
+        {
+            return p1point == p2point;
+        }
+
         private bool Player1HasWon()
         {
             var scoreDifference = p1point - p2point;
-            return p1point >= 4 && 
-                p2point >= 0 && 
+            return p1point >= 4 &&
+                p2point >= 0 &&
                 scoreDifference >= 2;
         }
 
