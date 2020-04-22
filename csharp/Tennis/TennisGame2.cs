@@ -83,12 +83,12 @@ namespace Tennis
                 score = p1res + "-" + p2res;
             }
 
-            if (p1point > p2point && p2point >= 3)
+            if (Player1HasAdvantage())
             {
                 score = "Advantage player1";
             }
 
-            if (p2point > p1point && p1point >= 3)
+            if (Player2HasAdvantage())
             {
                 score = "Advantage player2";
             }
@@ -104,21 +104,16 @@ namespace Tennis
             return score;
         }
 
-        public void SetP1Score(int number)
+        private bool Player1HasAdvantage()
         {
-            for (int i = 0; i < number; i++)
-            {
-                P1Score();
-            }
+            return p1point > p2point && p2point >= 3;
         }
 
-        public void SetP2Score(int number)
+        private bool Player2HasAdvantage()
         {
-            for (var i = 0; i < number; i++)
-            {
-                P2Score();
-            }
+            return p2point > p1point && p1point >= 3;
         }
+
 
         private void P1Score()
         {
