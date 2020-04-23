@@ -5,18 +5,16 @@ namespace Tennis
 {
     public class TennisGame2 : ITennisGame
     {
-        private int p1point;
-        private int p2point;
+        private int _player1Point;
+        private int _player2Point;
 
-        private string p1res = "";
-        private string p2res = "";
         private string player1Name;
         private string player2Name;
 
         public TennisGame2(string player1Name, string player2Name)
         {
             this.player1Name = player1Name;
-            p1point = 0;
+            _player1Point = 0;
             this.player2Name = player2Name;
         }
 
@@ -30,8 +28,8 @@ namespace Tennis
 
             if (BothPlayersHaveLessThan4Points())
             {
-                var player1ScoreDescription = GetScoreDescription(p1point);
-                var player2ScoreDescription = GetScoreDescription(p2point);
+                var player1ScoreDescription = GetScoreDescription(_player1Point);
+                var player2ScoreDescription = GetScoreDescription(_player2Point);
 
                 return $"{player1ScoreDescription}-{player2ScoreDescription}";
             }
@@ -73,65 +71,65 @@ namespace Tennis
 
         private bool Player1Leads()
         {
-            return p1point > p2point;
+            return _player1Point > _player2Point;
         }
 
         private bool BothPlayersHaveLessThan4Points()
         {
-            return p1point < 4 && p2point < 4 ;
+            return _player1Point < 4 && _player2Point < 4 ;
         }
 
         private string GetTieScoreDescription()
         {
-            if (p1point > 2)
+            if (_player1Point > 2)
             {
                 return "Deuce";
             }
 
-            var scoreDescription = GetScoreDescription(p1point);
+            var scoreDescription = GetScoreDescription(_player1Point);
             return $"{scoreDescription}-All";
         }
 
         private bool ScoreIsTied()
         {
-            return p1point == p2point;
+            return _player1Point == _player2Point;
         }
 
         private bool Player1HasWon()
         {
-            var scoreDifference = p1point - p2point;
-            return p1point >= 4 &&
-                p2point >= 0 &&
+            var scoreDifference = _player1Point - _player2Point;
+            return _player1Point >= 4 &&
+                _player2Point >= 0 &&
                 scoreDifference >= 2;
         }
 
         private bool Player2HasWon()
         {
-            var scoreDifference = p2point - p1point;
-            return p2point >= 4 &&
-                p1point >= 0 &&
+            var scoreDifference = _player2Point - _player1Point;
+            return _player2Point >= 4 &&
+                _player1Point >= 0 &&
                 scoreDifference >= 2;
         }
 
         private bool Player1HasAdvantage()
         {
-            return p1point > p2point && p2point >= 3;
+            return _player1Point > _player2Point && _player2Point >= 3;
         }
 
         private bool Player2HasAdvantage()
         {
-            return p2point > p1point && p1point >= 3;
+            return _player2Point > _player1Point && _player1Point >= 3;
         }
 
 
         private void P1Score()
         {
-            p1point++;
+            _player1Point++;
         }
 
         private void P2Score()
         {
-            p2point++;
+            _player2Point++;
         }
 
         public void WonPoint(string player)
