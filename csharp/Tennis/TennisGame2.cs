@@ -28,43 +28,14 @@ namespace Tennis
                 return GetTieScoreDescription();
             }
 
-            if (EitherPlayerHas0Points())
+            if (BothPlayersHaveLessThan4Points())
             {
-                if (BothPlayersHaveLessThan4Points())
-                {
-                    return GetLoveScoreDescription();
-                }
+                var player1ScoreDescription = GetScoreDescription(p1point);
+                var player2ScoreDescription = GetScoreDescription(p2point);
+
+                return $"{player1ScoreDescription}-{player2ScoreDescription}";
             }
-
-
-            
-
-            if (p1point > p2point && p1point < 4)
-            {
-                if (p1point == 2)
-                    p1res = "Thirty";
-                if (p1point == 3)
-                    p1res = "Forty";
-                if (p2point == 1)
-                    p2res = "Fifteen";
-                if (p2point == 2)
-                    p2res = "Thirty";
-                score = p1res + "-" + p2res;
-            }
-
-            if (p2point > p1point && p2point < 4)
-            {
-                if (p2point == 2)
-                    p2res = "Thirty";
-                if (p2point == 3)
-                    p2res = "Forty";
-                if (p1point == 1)
-                    p1res = "Fifteen";
-                if (p1point == 2)
-                    p1res = "Thirty";
-                score = p1res + "-" + p2res;
-            }
-
+           
             if (Player1HasAdvantage())
             {
                 score = "Advantage player1";
@@ -99,13 +70,6 @@ namespace Tennis
             return scoreDescriptions[score];
         }
 
-        private string GetLoveScoreDescription()
-        {
-            var player1ScoreDescription = GetScoreDescription(p1point);
-            var player2ScoreDescription = GetScoreDescription(p2point);
-
-            return $"{player1ScoreDescription}-{player2ScoreDescription}";
-        }
 
         private bool Player1Leads()
         {
@@ -116,11 +80,6 @@ namespace Tennis
         {
             return p1point < 4 && p2point < 4 ;
         }
-        private bool EitherPlayerHas0Points()
-        {
-            return p1point == 0 || p2point == 0;
-        }
-
 
         private string GetTieScoreDescription()
         {
