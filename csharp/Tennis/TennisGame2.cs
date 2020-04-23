@@ -20,7 +20,6 @@ namespace Tennis
 
         public string GetScore()
         {
-            var score = "";
             if (ScoreIsTied())
             {
                 return GetTieScoreDescription();
@@ -42,7 +41,6 @@ namespace Tennis
             {
                 return GetPlayer2LeadingScore();
             }
-
         }
 
         private string GetScoreDescription(int score)
