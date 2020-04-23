@@ -9,19 +9,6 @@ namespace Tennis
         private string _player1Name;
         private string _player2Name;
 
-        private string GetScoreDescription(int score)
-        {
-            var scoreDescriptions = new Dictionary<int, string>()
-            {
-                {0, "Love" },
-                {1, "Fifteen" },
-                {2, "Thirty" },
-                {3,"Forty" }
-            };
-
-            return scoreDescriptions[score];
-        }
-
         public TennisGame1(string player1Name, string player2Name)
         {
             _player1Name = player1Name;
@@ -54,8 +41,8 @@ namespace Tennis
 
         private string GetLessThan4ScoreDescription()
         {
-            var player1ScoreDescription = GetScoreDescription(_player1Score);
-            var player2ScoreDescription = GetScoreDescription(_player2Score);
+            var player1ScoreDescription = ScoreHelper.ScoreDescription(_player1Score);
+            var player2ScoreDescription = ScoreHelper.ScoreDescription(_player2Score);
 
             return $"{player1ScoreDescription}-{player2ScoreDescription}";
         }
@@ -87,7 +74,7 @@ namespace Tennis
         {
             if (_player1Score < 3)
             {
-                var scoreDescription = GetScoreDescription(_player1Score);
+                var scoreDescription = ScoreHelper.ScoreDescription(_player1Score);
                 return $"{scoreDescription}-All";
             }
             else
