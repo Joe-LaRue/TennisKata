@@ -25,34 +25,19 @@ namespace Tennis
             var score = "";
             if (ScoreIsTied())
             {
-                score = GetTieScoreDescription();
+                return GetTieScoreDescription();
             }
 
-
-            if (p1point > 0 && p2point == 0)
+            if (EitherPlayerHas0Points())
             {
-                if (p1point == 1)
-                    p1res = "Fifteen";
-                if (p1point == 2)
-                    p1res = "Thirty";
-                if (p1point == 3)
-                    p1res = "Forty";
-
-                p2res = "Love";
-                score = p1res + "-" + p2res;
+                if (BothPlayersHaveLessThan4Points())
+                {
+                    return GetLoveScoreDescription();
+                }
             }
-            if (p2point > 0 && p1point == 0)
-            {
-                if (p2point == 1)
-                    p2res = "Fifteen";
-                if (p2point == 2)
-                    p2res = "Thirty";
-                if (p2point == 3)
-                    p2res = "Forty";
 
-                p1res = "Love";
-                score = p1res + "-" + p2res;
-            }
+
+            
 
             if (p1point > p2point && p1point < 4)
             {
@@ -108,11 +93,34 @@ namespace Tennis
                 {0, "Love" },
                 {1, "Fifteen" },
                 {2, "Thirty" },
-                {3,"Forty" }
+                {3, "Forty" }
             };
 
             return scoreDescriptions[score];
         }
+
+        private string GetLoveScoreDescription()
+        {
+            var player1ScoreDescription = GetScoreDescription(p1point);
+            var player2ScoreDescription = GetScoreDescription(p2point);
+
+            return $"{player1ScoreDescription}-{player2ScoreDescription}";
+        }
+
+        private bool Player1Leads()
+        {
+            return p1point > p2point;
+        }
+
+        private bool BothPlayersHaveLessThan4Points()
+        {
+            return p1point < 4 && p2point < 4 ;
+        }
+        private bool EitherPlayerHas0Points()
+        {
+            return p1point == 0 || p2point == 0;
+        }
+
 
         private string GetTieScoreDescription()
         {
