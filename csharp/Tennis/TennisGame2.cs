@@ -33,26 +33,16 @@ namespace Tennis
 
                 return $"{player1ScoreDescription}-{player2ScoreDescription}";
             }
-           
-            if (Player1HasAdvantage())
+
+            if (Player1Leads())
             {
-                score = "Advantage player1";
+                return GetPlayer1LeadingScore();
+            }
+            else
+            {
+                return GetPlayer2LeadingScore();
             }
 
-            if (Player2HasAdvantage())
-            {
-                score = "Advantage player2";
-            }
-
-            if (Player1HasWon())
-            {
-                score = "Win for player1";
-            }
-            if (Player2HasWon())
-            {
-                score = "Win for player2";
-            }
-            return score;
         }
 
         private string GetScoreDescription(int score)
@@ -74,9 +64,33 @@ namespace Tennis
             return _player1Point > _player2Point;
         }
 
+        private string GetPlayer1LeadingScore()
+        {
+            var scoreDifference = _player1Point - _player2Point;
+
+            if (scoreDifference >= 2)
+            {
+                return "Win for player1";
+            }
+
+            return "Advantage player1";
+        }
+
+        private string GetPlayer2LeadingScore()
+        {
+            var scoreDifference = _player2Point - _player1Point;
+
+            if (scoreDifference >= 2)
+            {
+                return "Win for player2";
+            }
+
+            return "Advantage player2";
+        }
+
         private bool BothPlayersHaveLessThan4Points()
         {
-            return _player1Point < 4 && _player2Point < 4 ;
+            return _player1Point < 4 && _player2Point < 4;
         }
 
         private string GetTieScoreDescription()
@@ -94,33 +108,6 @@ namespace Tennis
         {
             return _player1Point == _player2Point;
         }
-
-        private bool Player1HasWon()
-        {
-            var scoreDifference = _player1Point - _player2Point;
-            return _player1Point >= 4 &&
-                _player2Point >= 0 &&
-                scoreDifference >= 2;
-        }
-
-        private bool Player2HasWon()
-        {
-            var scoreDifference = _player2Point - _player1Point;
-            return _player2Point >= 4 &&
-                _player1Point >= 0 &&
-                scoreDifference >= 2;
-        }
-
-        private bool Player1HasAdvantage()
-        {
-            return _player1Point > _player2Point && _player2Point >= 3;
-        }
-
-        private bool Player2HasAdvantage()
-        {
-            return _player2Point > _player1Point && _player1Point >= 3;
-        }
-
 
         private void P1Score()
         {
