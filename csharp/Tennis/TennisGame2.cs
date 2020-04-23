@@ -27,8 +27,8 @@ namespace Tennis
 
             if (BothPlayersHaveLessThan4Points())
             {
-                var player1ScoreDescription = GetScoreDescription(_player1Point);
-                var player2ScoreDescription = GetScoreDescription(_player2Point);
+                var player1ScoreDescription = ScoreHelper.ScoreDescription(_player1Point);
+                var player2ScoreDescription = ScoreHelper.ScoreDescription(_player2Point);
 
                 return $"{player1ScoreDescription}-{player2ScoreDescription}";
             }
@@ -42,20 +42,6 @@ namespace Tennis
                 return GetPlayer2LeadingScore();
             }
         }
-
-        private string GetScoreDescription(int score)
-        {
-            var scoreDescriptions = new Dictionary<int, string>()
-            {
-                {0, "Love" },
-                {1, "Fifteen" },
-                {2, "Thirty" },
-                {3, "Forty" }
-            };
-
-            return scoreDescriptions[score];
-        }
-
 
         private bool Player1Leads()
         {
@@ -98,7 +84,7 @@ namespace Tennis
                 return "Deuce";
             }
 
-            var scoreDescription = GetScoreDescription(_player1Point);
+            var scoreDescription = ScoreHelper.ScoreDescription(_player1Point);
             return $"{scoreDescription}-All";
         }
 
